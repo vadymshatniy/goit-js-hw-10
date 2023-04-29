@@ -1,7 +1,7 @@
 import './css/styles.css';
 import debounce from "lodash.debounce";
 import Notiflix from 'notiflix';
-import { fetchCountries } from './fetchCountries.js';
+import { fetchCountries } from './js/fetchCountries.js';
 
 const input = document.querySelector('#search-box');
 const list = document.querySelector('.country-list');
@@ -15,8 +15,8 @@ function onInput(evt) {
     const name = input.value.trim();
     fetchCountries(name)
     .then((data) => (list.innerHTML = createCountry(data)))
-        .catch((err) => console.log(err));
-}
+    .catch((err) => console.log(err))
+};
 
 function createCountry(arr) {
     if (arr.length === 1) {
@@ -29,10 +29,12 @@ function createCountry(arr) {
             <p style="font-weight: bold">Languages: <span style="font-weight: normal">${Object.values(languages)}</span></p></li>`).join('');
     } else if (arr.length >= 2 && arr.length <= 10) {
         return arr.map(({ name, flags, capital, population, languages }) =>
-            `<p class="country-name" style="font-weight: bold">
+            `<li><p class="country-name" style="font-weight: bold">
             <img src="${flags.png}" alt="country ${name}" width="60"/>
-            ${name.official}</p>`).join('');
+            ${name.official}</p></li>`).join('');
     } else {
         Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
-    }
+        return arr.map(({ name, flags, capital, population, languages }) =>
+        list.innerHTML = " ").join('');
+}
 }

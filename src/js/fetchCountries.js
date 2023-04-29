@@ -9,7 +9,7 @@ function fetchCountries(name) {
         .then(resp => {
             if (resp.status === 404) {
                 Notiflix.Notify.failure('Oops, there is no country with that name');
-                list.remove();
+                list.innerHTML = " ";
             };
             if (!resp.ok) {
                 throw new Error(resp.statusText)
@@ -19,4 +19,4 @@ function fetchCountries(name) {
     })
 }
 
-export {fetchCountries};
+export { fetchCountries };
